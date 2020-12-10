@@ -11,6 +11,8 @@ const connection = mysql.createConnection({
     database: ""
   });
 
+
+
   //First log in prompts
   inquirer
   .prompt({
@@ -28,7 +30,43 @@ const connection = mysql.createConnection({
     message: "What would you like to do?",
     name: "option"
   })
-  
+
+  .then(function(result) {
+    console.log("You have selected: " + answer.option);
+
+  switch (choices) {
+    case "ADD_DEPARTMENT":
+      return addDepartment();
+    case "ADD_ROLE":
+      return addRole();
+    case "ADD_EMPLOYEE":
+      return addEmployee();
+    case "VIEW_DEPARTMENTS":
+      return viewDepartments();
+    case "VIEW_ROLES":
+        return viewRoles();
+		case "VIEW_EMPLOYEES":
+      return viewEmployees();
+      case 'UPDATE_EMPLOYEE_ROLE':
+        return updateEmployeeRole();
+      case 'REMOVE_EMPLOYEE':
+        return removeEmployee();
+		case 'VIEW_EMPLOYEES_BY_DEPARTMENT':
+			return viewEmployeesByDepartment();
+		case "ADD_EMPLOYEE":
+		  return addEmployee();
+		case 'REMOVE_EMPLOYEE':
+			return removeEmployee();
+		case 'UPDATE_EMPLOYEE_ROLE':
+      return updateEmployeeRole();
+      case 'REMOVE_ROLE':
+        return removeRole();
+      default:
+        return quit();
+		
+	}
+
+
 
   //Department 
   inquirer.prompt({
@@ -104,5 +142,4 @@ const connection = mysql.createConnection({
     let readmeContent = generateReadMeMarkdown(answer);
    fs.writeFileSync(path.join(process.cwd(), 'ReadMe.md'), generateReadMeMarkdown(answer)); 
   });
-j
-  
+  })
