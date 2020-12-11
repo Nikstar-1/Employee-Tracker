@@ -18,13 +18,13 @@ const connection = mysql.createConnection({
   .prompt({
     type: "list",
     choices: [
-      "Add department",
-      "Add role",
-      "Add employee",
-      "View departments",
-      "View roles",
-      "View employees",
-      "Update employee role",
+      "ADD_DEPARTMENT",
+      "ADD_ROLE",
+      "ADD_EMPLOYEE",
+      "VIEW_DEPARTMENTS",
+      "VIEW_ROLES",
+      "VIEW_EMPLOYEES",
+      "UPDATE_EMPLOYEE_ROLE",
       "Quit"
     ],
     message: "What would you like to do?",
@@ -32,7 +32,9 @@ const connection = mysql.createConnection({
   })
 
   .then(function(result) {
-    console.log("You have selected: " + answer.option);
+    console.log("\You have selected: " + result.option);
+    console.log("choices: ", choices);
+   // console.log("You have selected: " + answer.option);
 
   switch (choices) {
     case "ADD_DEPARTMENT":
@@ -49,18 +51,6 @@ const connection = mysql.createConnection({
       return viewEmployees();
       case 'UPDATE_EMPLOYEE_ROLE':
         return updateEmployeeRole();
-      case 'REMOVE_EMPLOYEE':
-        return removeEmployee();
-		case 'VIEW_EMPLOYEES_BY_DEPARTMENT':
-			return viewEmployeesByDepartment();
-		case "ADD_EMPLOYEE":
-		  return addEmployee();
-		case 'REMOVE_EMPLOYEE':
-			return removeEmployee();
-		case 'UPDATE_EMPLOYEE_ROLE':
-      return updateEmployeeRole();
-      case 'REMOVE_ROLE':
-        return removeRole();
       default:
         return quit();
 		
