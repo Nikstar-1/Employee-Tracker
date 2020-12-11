@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const mysql = require("mysql");
+const mysql = require('mysql');
 
 /*const connection = mysql.createConnection({
     host: "localhost",
@@ -170,11 +170,8 @@ const mysql = require("mysql");
         console.log("\You have selected: " + answer.option);
         console.log("choices: ", choices);
         })
-      })  /*.then((answer) => {
-    let readmeContent = generateReadMeMarkdown(answer);
-   fs.writeFileSync(path.join(process.cwd(), 'ReadMe.md'), generateReadMeMarkdown(answer)); 
-  
-  });*/
+      })  
+      
 
   })
 
