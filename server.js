@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: "localhost",
   
   //Port 3306
@@ -9,52 +9,69 @@ const connection = mysql.createConnection({
     user: "start",
     password: "start",
     database: ""
-  });
-
-
+  }); */
 
   //First log in prompts
+  connection.connect(function(err){
+    if (err) throw err;
+    homeScreen();
+})
   inquirer
   .prompt({
     type: "list",
     choices: [
-      "ADD_DEPARTMENT",
-      "ADD_ROLE",
-      "ADD_EMPLOYEE",
-      "VIEW_DEPARTMENTS",
-      "VIEW_ROLES",
-      "VIEW_EMPLOYEES",
-      "UPDATE_EMPLOYEE_ROLE",
+      "Add department",
+      "Add role",
+      "Add employee",
+      "View departments",
+      "View roles",
+      "View employees",
+      "Update employee role",
       "Quit"
     ],
     message: "What would you like to do?",
     name: "option"
-  })
 
-  .then(function(result) {
-    console.log("\You have selected: " + result.option);
-    console.log("choices: ", choices);
-   // console.log("You have selected: " + answer.option);
+  }).then((answer) => {
+    connection.query(query, function(err, res) {
+      console.log("\You have selected: " + answer.option);
+      console.log("choices: ", choices);
+      })
+   
+    switch (answer.option) {
+      case "View All Employees?":
+        viewAllEmployees();
+      break;
 
-  switch (choices) {
-    case "ADD_DEPARTMENT":
-      return addDepartment();
-    case "ADD_ROLE":
-      return addRole();
-    case "ADD_EMPLOYEE":
-      return addEmployee();
-    case "VIEW_DEPARTMENTS":
-      return viewDepartments();
-    case "VIEW_ROLES":
-        return viewRoles();
-		case "VIEW_EMPLOYEES":
-      return viewEmployees();
-      case 'UPDATE_EMPLOYEE_ROLE':
-        return updateEmployeeRole();
-      default:
-        return quit();
-		
-	}
+    case "View Employee Roles?":
+        viewAllRoles();
+      break;
+    case "View all Emplyees By Deparments":
+        viewAllDepartments();
+      break;
+    
+    case "Add Employee?":
+          addEmployee();
+        break;
+
+    case "Update Employee":
+          updateEmployee();
+        break;
+
+      case "Add Role?":
+          addRole();
+        break;
+
+      case "Add Department?":
+          addDepartment();
+        break;
+
+      case "Quit":
+      quit();
+        break;
+        default:
+         
+      }
 
 
 
@@ -63,10 +80,20 @@ const connection = mysql.createConnection({
       
     type: "input",
     message: "What is the name of the department?",
-    name: "dptName"
+    name: "departmentName"
 
-  }) 
- 
+   
+  }).then((answer) => {
+    connection.query(query, function(err, res) {
+      console.log("\You have selected: " + answer.option);
+      console.log("choices: ", choices);
+      homeScreen();
+      })
+  
+
+  })
+     
+
   //Add Role
   inquirer
     .prompt([
@@ -83,9 +110,15 @@ const connection = mysql.createConnection({
       {
         type: "input",
         message: "What is the department id number?",
-        name: "dptID"
+        name: "departmentID"
       }
-    ])
+    ]).then((answer) => {
+        connection.query(query, function(err, res) {
+          console.log("\You have selected: " + answer.option);
+          console.log("choices: ", choices);
+          
+        })
+    })
 
     //Add Employee
     inquirer
@@ -110,7 +143,13 @@ const connection = mysql.createConnection({
         message: "What is the manager id number?",
         name: "managerID"
       }
-    ])
+    ]).then((answer) => {
+      connection.query(query, function(err, res) {
+        console.log("\You have selected: " + answer.option);
+        console.log("choices: ", choices);
+        })
+    
+    })
    
     //Update Employee
     inquirer
@@ -126,10 +165,17 @@ const connection = mysql.createConnection({
         message: "What do you want to update to?",
         name: "updateRole"
       }
-    ])
-
-  .then((answer) => {
+    ]).then((answer) => {
+      connection.query(query, function(err, res) {
+        console.log("\You have selected: " + answer.option);
+        console.log("choices: ", choices);
+        })
+      })  /*.then((answer) => {
     let readmeContent = generateReadMeMarkdown(answer);
    fs.writeFileSync(path.join(process.cwd(), 'ReadMe.md'), generateReadMeMarkdown(answer)); 
-  });
+  
+  });*/
+
   })
+
+  //1. startScree() option
