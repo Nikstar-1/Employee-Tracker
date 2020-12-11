@@ -1,15 +1,23 @@
 const inquirer = require("inquirer");
 const mysql = require('mysql');
 
-/*const connection = mysql.createConnection({
-    host: "localhost",
-  
-  //Port 3306
-    port: 3306,
-    user: "start",
-    password: "start",
-    database: ""
-  }); */
+
+const connection = mysql.createConnection({
+  port     : '3306',
+  host     : 'localhost',
+  database : 'mysql1',
+  user     : 'root',
+  password : 'secret'
+});
+ 
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+ 
+  console.log('connected as id ' + connection.threadId);
+});
 
   //First log in prompts
   connection.connect(function(err){
