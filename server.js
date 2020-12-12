@@ -5,9 +5,9 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   port     : '3306',
   host     : 'localhost',
-  database : 'mysql1',
   user     : 'root',
-  password : 'secret'
+  password : 'Geppetoes87',
+  database : 'mysql1',
 });
  
 connection.connect(function(err) {
@@ -20,10 +20,10 @@ connection.connect(function(err) {
 });
 
   //First log in prompts
-  connection.connect(function(err){
+  /*connection.connect(function(err){
     if (err) throw err;
     homeScreen();
-})
+})*/
   inquirer
   .prompt({
     type: "list",
