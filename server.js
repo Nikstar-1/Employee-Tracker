@@ -1,6 +1,9 @@
 const inquirer = require("inquirer");
 const dbQueryUtil = require("./dbFiles/dbUtil.js");
 
+init();
+
+function init(){
 inquirer
   .prompt({
     type: "list",
@@ -9,9 +12,6 @@ inquirer
     name: "option",
   })
   .then((answer) => {
-    console.log(answer);
-    //connection.query(query, function(err, res) {
-
     switch (answer.option) {
       case "View All Employees?":
         return viewAllEmployees();
@@ -31,7 +31,39 @@ inquirer
         return quit();
     }
   });
-/*
+}
+
+async function viewAllEmployees(){
+
+}
+
+async function viewAllRoles(){
+
+}
+
+async function viewAllDepartments(){
+
+}
+async function addEmployee(){
+
+}
+
+async function addRole(){
+
+}
+
+async function addDepartment(){
+
+}
+
+async function updateEmployee(){
+
+}
+
+function quit(){
+  process.exit();
+}
+  /*
 
 
 
