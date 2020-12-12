@@ -5,6 +5,9 @@ class databaseQueryUtil {
         this.connection = connection;
     }
 
+    getAllEmployees(){
+        return this.connection.query(" SELECT * FROM employee"); 
+    }
     createEmployee(employee){
         return this.connection.query("INSERT INTO employee SET ?", employee)
 

@@ -13,7 +13,7 @@ inquirer
   })
   .then((answer) => {
     switch (answer.option) {
-      case "View All Employees?":
+      case "View Employees":
         return viewAllEmployees();
       case "View Employee Roles?":
         return viewAllRoles();
@@ -34,7 +34,8 @@ inquirer
 }
 
 async function viewAllEmployees(){
-
+  const employees = await dbQueryUtil.getAllEmployees(); 
+  console.table(employees); 
 }
 
 async function viewAllRoles(){
@@ -45,7 +46,29 @@ async function viewAllDepartments(){
 
 }
 async function addEmployee(){
-
+  const employeeToAdd = await inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "What's the first name of the employee?",
+      name: "employeeFirstName"
+    },
+    {
+      type: "input",
+      message: "What's the last name of the employee?",
+      name: "employeeLastName"
+    },
+    {
+      type: "input",
+      message: "What is the employee's role id number?",
+      name: "roleIDNumber"
+    },
+    {
+      type: "input",
+      message: "What is the manager id number?",
+      name: "managerID"
+    }
+  ])
 }
 
 async function addRole(){
