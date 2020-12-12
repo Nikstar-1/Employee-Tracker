@@ -1,4 +1,4 @@
-USE employee_trackerDB,
+USE employee_tracker_db,
 
 INSERT INTO department (name)
 VALUES 
@@ -13,5 +13,5 @@ VALUES
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
-    ("Rekha", "Kumari",1,NULL),
+    ("Rekha", "Kumari",1,NULL)
     ("John", "Doe",2,3)
