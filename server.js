@@ -1,62 +1,37 @@
 const inquirer = require("inquirer");
-const dbQueryUtil = require("./dbFiles/dbUtil.js"); 
+const dbQueryUtil = require("./dbFiles/dbUtil.js");
 
-  inquirer
+inquirer
   .prompt({
     type: "list",
-    choices: [
-      "Add department",
-      "Add role",
-      "Add employee",
-      "View departments",
-      "View roles",
-      "View employees",
-      "Update employee role",
-      "Quit"
-    ],
+    choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Quit"],
     message: "What would you like to do?",
-    name: "option"
-
-  }).then((answer) => {
-    console.log(answer)
+    name: "option",
+  })
+  .then((answer) => {
+    console.log(answer);
     //connection.query(query, function(err, res) {
-  
-      })
-   /*
+
     switch (answer.option) {
       case "View All Employees?":
-        viewAllEmployees();
-      break;
-
-    case "View Employee Roles?":
-        viewAllRoles();
-      break;
-    case "View all Emplyees By Deparments":
-        viewAllDepartments();
-      break;
-    
-    case "Add Employee?":
-          addEmployee();
-        break;
-
-    case "Update Employee":
-          updateEmployee();
-        break;
-
+        return viewAllEmployees();
+      case "View Employee Roles?":
+        return viewAllRoles();
+      case "View all Emplyees By Deparments":
+        return viewAllDepartments();
+      case "Add Employee?":
+        return addEmployee();
+      case "Update Employee":
+        return updateEmployee();
       case "Add Role?":
-          addRole();
-        break;
-
+        return addRole();
       case "Add Department?":
-          addDepartment();
-        break;
-
+        return addDepartment();
       case "Quit":
-      quit();
-        break;
-        default:
-         
-      }
+        return quit();
+    }
+  });
+/*
 
 
 
@@ -160,4 +135,4 @@ const dbQueryUtil = require("./dbFiles/dbUtil.js");
 
   })
 */
-  //1. startScree() option
+//1. startScree() option
