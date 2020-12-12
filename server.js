@@ -1,11 +1,5 @@
 const inquirer = require("inquirer");
-const mysql = require('mysql');
 
-  //First log in prompts
-  /*connection.connect(function(err){
-    if (err) throw err;
-    homeScreen();
-})*/
   inquirer
   .prompt({
     type: "list",
