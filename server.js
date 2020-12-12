@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const dbQueryUtil = require("./dbFiles/dbUtil.js"); 
 
   inquirer
   .prompt({
@@ -17,11 +18,11 @@ const inquirer = require("inquirer");
     name: "option"
 
   }).then((answer) => {
-    connection.query(query, function(err, res) {
-      console.log("\You have selected: " + answer.option);
-      console.log("choices: ", choices);
+    console.log(answer)
+    //connection.query(query, function(err, res) {
+  
       })
-   
+   /*
     switch (answer.option) {
       case "View All Employees?":
         viewAllEmployees();
@@ -158,5 +159,5 @@ const inquirer = require("inquirer");
       
 
   })
-
+*/
   //1. startScree() option
