@@ -12,10 +12,11 @@ inquirer
     name: "option",
   })
   .then((answer) => {
+    console.log(answer)
     switch (answer.option) {
       case "View Employees":
         return viewAllEmployees();
-      case "View Employee Roles?":
+      case "View Roles":
         return viewAllRoles();
       case "View all Employees By Deparments":
         return viewAllDepartments();
@@ -25,7 +26,7 @@ inquirer
         return updateEmployee();
       case "Add Role?":
         return addRole();
-      case "Add Department?":
+      case "Add Department":
         return addDepartment();
       case "Quit":
         return quit();
@@ -47,6 +48,16 @@ async function viewAllRoles(){
 async function viewAllDepartments(){
   const departments = await dbQueryUtil.viewAllDepartments(); 
   console.table(departments); 
+  async function addDepartment(){
+    inquirer.prompt({
+        
+      type: "input",
+      message: "What is the name of the department?",
+      name: "departmentName"
+  
+    }
+  )
+  }
 
 }
 async function addEmployee(){
@@ -96,7 +107,7 @@ async function addRole(){
   ])
 }
 
-async function addDepartment(){
+/*async function addDepartment(){
   inquirer.prompt({
       
     type: "input",
@@ -106,7 +117,7 @@ async function addDepartment(){
   }
 )
 }
-
+*/
 
 async function updateEmployee(){
   inquirer
