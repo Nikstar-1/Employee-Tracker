@@ -17,7 +17,7 @@ inquirer
         return viewAllEmployees();
       case "View Employee Roles?":
         return viewAllRoles();
-      case "View all Emplyees By Deparments":
+      case "View all Employees By Deparments":
         return viewAllDepartments();
       case "Add Employee?":
         return addEmployee();
@@ -39,10 +39,14 @@ async function viewAllEmployees(){
 }
 
 async function viewAllRoles(){
-
+  const role = await dbQueryUtil.viewAllRoles(); 
+  console.table(role); 
+  
 }
 
 async function viewAllDepartments(){
+  const departments = await dbQueryUtil.viewAllDepartments(); 
+  console.table(departments); 
 
 }
 async function addEmployee(){
@@ -69,19 +73,67 @@ async function addEmployee(){
       name: "managerID"
     }
   ])
-}
 
-async function addRole(){
 
+async function addRole(){ 
+  const roleToAdd = await inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "What's the name of the role?",
+      name: "roleName"
+    },
+    {
+      type: "input",
+      message: "What is the salary for this role?",
+      name: "totalSalary"
+    },
+    {
+      type: "input",
+      message: "What is the department id number?",
+      name: "departmentID"
+    }
+  ])
 }
 
 async function addDepartment(){
+  inquirer.prompt({
+      
+    type: "input",
+    message: "What is the name of the department?",
+    name: "departmentName"
 
+  }
+)
 }
+
 
 async function updateEmployee(){
-
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "What's the first name of the employee?",
+      name: "employeeFirstName"
+    },
+    {
+      type: "input",
+      message: "What's the last name of the employee?",
+      name: "employeeLastName"
+    },
+    {
+      type: "input",
+      message: "What is the employee's role id number?",
+      name: "roleIDNumber"
+    },
+    {
+      type: "input",
+      message: "What is the manager id number?",
+      name: "managerID"
+    }
+  ])
 }
+
 
 function quit(){
   process.exit();
@@ -190,4 +242,4 @@ function quit(){
 
   })
 */
-//1. startScree() option
+}
