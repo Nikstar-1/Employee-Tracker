@@ -44,20 +44,25 @@ async function viewAllRoles(){
   console.table(role); 
   
 }
+async function addDepartment(){
+  inquirer.prompt({
+      
+    type: "input",
+    message: "What is the name of the department?",
+    name: "departmentName"
 
+  }
+).then (async response =>{
+console.log(response)
+var departmentName = await dbQueryUtil.createDepartment(response.departmentName);
+console.log(departmentName)
+})
+}
 async function viewAllDepartments(){
+
   const departments = await dbQueryUtil.viewAllDepartments(); 
   console.table(departments); 
-  async function addDepartment(){
-    inquirer.prompt({
-        
-      type: "input",
-      message: "What is the name of the department?",
-      name: "departmentName"
-  
-    }
-  )
-  }
+ 
 
 }
 async function addEmployee(){
@@ -105,7 +110,18 @@ async function addRole(){
       name: "departmentID"
     }
   ])
-}
+.then (async response =>{
+  console.log(response)
+  var roleName = await dbQueryUtil.createRole(response.addRole);
+  console.log(roleName)
+  })
+  }
+  async function addRole(){
+  
+    const role = await dbQueryUtil.viewAddRole(); 
+    console.table(role); 
+   
+  }
 
 /*async function addDepartment(){
   inquirer.prompt({

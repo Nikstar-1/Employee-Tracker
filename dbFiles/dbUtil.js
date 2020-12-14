@@ -45,14 +45,14 @@ class databaseQueryUtil {
         return this.connection.query(" SELECT * FROM employee"); 
     }
     createRole(role){
-        return this.connection.query("INSERT INTO employee SET ?", role)
+        return this.connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", role)
 
     }
     addDepartment(){
         return this.connection.query(" SELECT * FROM employee"); 
     }
     createDepartment(department){
-        return this.connection.query("INSERT INTO employee SET ?", department)
+        return this.connection.query("INSERT INTO department (name) VALUES (?)", department)
 
     }
 
