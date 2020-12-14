@@ -24,7 +24,7 @@ inquirer
         return addEmployee();
       case "Update Employee":
         return updateEmployee();
-      case "Add Role?":
+      case "Add Role":
         return addRole();
       case "Add Department":
         return addDepartment();
@@ -89,7 +89,7 @@ async function addEmployee(){
       name: "managerID"
     }
   ])
-
+}
 
 async function addRole(){ 
   const roleToAdd = await inquirer
@@ -116,12 +116,12 @@ async function addRole(){
   console.log(roleName)
   })
   }
-  async function addRole(){
+ /* async function addRole(){
   
     const role = await dbQueryUtil.viewAddRole(); 
     console.table(role); 
    
-  }
+  }*/
 
 /*async function addDepartment(){
   inquirer.prompt({
@@ -269,4 +269,4 @@ function quit(){
 
   })
 */
-}
+
