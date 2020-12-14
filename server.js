@@ -20,7 +20,7 @@ inquirer
         return viewAllRoles();
       case "View all Employees By Deparments":
         return viewAllDepartments();
-      case "Add Employee?":
+      case "Add Employee":
         return addEmployee();
       case "Update Employee":
         return updateEmployee();
@@ -97,23 +97,23 @@ async function addRole(){
     {
       type: "input",
       message: "What's the name of the role?",
-      name: "roleName"
+      name: "title"
     },
     {
       type: "input",
       message: "What is the salary for this role?",
-      name: "totalSalary"
+      name: "salary"
     },
     {
       type: "input",
       message: "What is the department id number?",
-      name: "departmentID"
+      name: "department_id"
     }
   ])
 .then (async response =>{
   console.log(response)
-  var roleName = await dbQueryUtil.createRole(response.addRole);
-  console.log(roleName)
+  var name = await dbQueryUtil.createRole(response.addRole);
+  console.log(name)
   })
   }
  /* async function addRole(){
