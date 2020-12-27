@@ -92,6 +92,9 @@ async function addEmployee(){
 }
 
 async function addRole(){ 
+  const departments = await dbQueryUtil.viewAllDepartments(); 
+const departmentsList = departments.map(({id, name}) => ({name: name, value: id})); 
+
   const roleToAdd = await inquirer
   .prompt([
     {
@@ -105,35 +108,17 @@ async function addRole(){
       name: "salary"
     },
     {
-      type: "input",
+      type: "list",
       message: "What is the department id number?",
-      name: "department_id"
+      name: "department_id",
+      choices: departmentsList
     }
   ])
-.then (async response =>{
-  console.log(response)
-  var name = await dbQueryUtil.createRole(response.addRole);
-  console.log(name)
-  })
-  }
- /* async function addRole(){
-  
-    const role = await dbQueryUtil.viewAddRole(); 
-    console.table(role); 
-   
-  }*/
 
-/*async function addDepartment(){
-  inquirer.prompt({
-      
-    type: "input",
-    message: "What is the name of the department?",
-    name: "departmentName"
-
+   await dbQueryUtil.addRole(roleToAdd);
+init();
   }
-)
-}
-*/
+
 
 async function updateEmployee(){
   inquirer
