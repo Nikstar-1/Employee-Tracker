@@ -27,8 +27,8 @@ class databaseQueryUtil {
         return this.connection.query("INSERT INTO employee SET ?", departments)
 
     }
-    addEmployee(){
-        return this.connection.query("INSERT INTO employee SET ?", ); 
+    addEmployee(newEmployee){
+        return this.connection.query("INSERT INTO employee SET ?", newEmployee); 
     }
     createEmployee(employee){
         return this.connection.query("INSERT INTO employee SET ?", employee)
