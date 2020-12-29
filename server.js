@@ -8,7 +8,7 @@ function init() {
   inquirer
     .prompt({
       type: "list",
-      choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Quit"],
+      choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Delete Employee", "Quit"],
       message: "What would you like to do?",
       name: "option",
     })
@@ -19,7 +19,7 @@ function init() {
           return viewAllEmployees();
         case "View Roles":
           return viewAllRoles();
-        case "View Deparments":
+        case "View Departments":
           return viewAllDepartments();
         case "Add Employee":
           return addEmployee();
@@ -29,6 +29,8 @@ function init() {
           return addDepartment();
         case "Update Employee Role":
           return updateEmployee();
+          case "Delete Employee":
+            return deleteEmployee();
         case "Quit":
           return quit();
       }
@@ -54,7 +56,7 @@ async function addDepartment() {
   const department = await inquirer.prompt({
     type: "input",
     message: "What is the name of the department?",
-    name: "departmentName",
+    name: "name",
   });
   await dbQueryUtil.createDepartment(department);
   init();
@@ -164,110 +166,25 @@ async function updateEmployee() {
   await dbUtil.updateEmployeeRole(employeeId, roleId);
   init();
 }
+async function deleteEmployee(){
+  const employeeOptions = await dbUtil.getAllEmployees();
 
+  const employeeOptionsToChooseFrom = employeeOptions.map(({ id, first_name, last_name }) => ({
+    name: first_name + last_name,
+    value: id,
+  }));
+
+  const { employeeId } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "employeeId",
+      message: "Select the employee whose role you wish to change:",
+      choices: employeeOptionsToChooseFrom,
+    },
+  ]);
+  await dbUtil.removeEmployee(employeeId);
+  init();
+}
 function quit() {
   process.exit();
 }
-
-/*
-
-  //Department 
-  inquirer.prompt({
-      
-    type: "input",
-    message: "What is the name of the department?",
-    name: "departmentName"
-
-   
-  }).then((answer) => {
-    connection.query(query, function(err, res) {
-      console.log("\You have selected: " + answer.option);
-      console.log("choices: ", choices);
-      homeScreen();
-      })
-  
-
-  })
-     
-
-  //Add Role
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "What's the name of the role?",
-        name: "roleName"
-      },
-      {
-        type: "input",
-        message: "What is the salary for this role?",
-        name: "totalSalary"
-      },
-      {
-        type: "input",
-        message: "What is the department id number?",
-        name: "departmentID"
-      }
-    ]).then((answer) => {
-        connection.query(query, function(err, res) {
-          console.log("\You have selected: " + answer.option);
-          console.log("choices: ", choices);
-          
-        })
-    })
-
-    //Add Employee
-    inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "What's the first name of the employee?",
-        name: "employeeFirstName"
-      },
-      {
-        type: "input",
-        message: "What's the last name of the employee?",
-        name: "employeeLastName"
-      },
-      {
-        type: "input",
-        message: "What is the employee's role id number?",
-        name: "roleIDNumber"
-      },
-      {
-        type: "input",
-        message: "What is the manager id number?",
-        name: "managerID"
-      }
-    ]).then((answer) => {
-      connection.query(query, function(err, res) {
-        console.log("\You have selected: " + answer.option);
-        console.log("choices: ", choices);
-        })
-    
-    })
-   
-    //Update Employee
-    inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "Which employee would you like to update?",
-        name: "employeeUpdate"
-      },
-
-      {
-        type: "input",
-        message: "What do you want to update to?",
-        name: "updateRole"
-      }
-    ]).then((answer) => {
-      connection.query(query, function(err, res) {
-        console.log("\You have selected: " + answer.option);
-        console.log("choices: ", choices);
-        })
-      })  
-      
-
-  })
-*/

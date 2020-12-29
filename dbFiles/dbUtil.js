@@ -38,6 +38,10 @@ class databaseQueryUtil {
       console.log("inside query")
       return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [newRoleId, employeeId])
   }
+
+  removeEmployee(id){
+      return this.connection.query("DELETE FROM employee WHERE id = ?", id)
+  }
 }
 
 module.exports = new databaseQueryUtil(connection);
