@@ -8,7 +8,19 @@ function init() {
   inquirer
     .prompt({
       type: "list",
-      choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Delete Employee", "Delete Role", "Quit"],
+      choices: [
+        "Add Department",
+        "Add Role",
+        "Add Employee",
+        "View Departments",
+        "View Roles",
+        "View Employees",
+        "Update Employee Role",
+        "Delete Employee",
+        "Delete Role",
+        "Delete Department",
+        "Quit",
+      ],
       message: "What would you like to do?",
       name: "option",
     })
@@ -29,10 +41,12 @@ function init() {
           return addDepartment();
         case "Update Employee Role":
           return updateEmployee();
-          case "Delete Employee":
-            return deleteEmployee();
-            case "Delete Role":
-              return deleteRole();
+        case "Delete Employee":
+          return deleteEmployee();
+        case "Delete Role":
+          return deleteRole();
+        case "Delete Department":
+          return deleteDepartment();
         case "Quit":
           return quit();
       }
@@ -168,7 +182,7 @@ async function updateEmployee() {
   await dbUtil.updateEmployeeRole(employeeId, roleId);
   init();
 }
-async function deleteEmployee(){
+async function deleteEmployee() {
   const employeeOptions = await dbUtil.getAllEmployees();
 
   const employeeOptionsToChooseFrom = employeeOptions.map(({ id, first_name, last_name }) => ({
@@ -180,7 +194,7 @@ async function deleteEmployee(){
     {
       type: "list",
       name: "employeeId",
-      message: "Select the employee whose role you wish to change:",
+      message: "Which employee would you like to delete?",
       choices: employeeOptionsToChooseFrom,
     },
   ]);
@@ -188,10 +202,9 @@ async function deleteEmployee(){
   init();
 }
 
-async function deleteRole(){
-
+async function deleteRole() {
   const rolesOptions = await dbUtil.viewAllRoles();
-  
+
   const rolesOptionsToChooseFrom = rolesOptions.map(({ id, title }) => ({
     name: title,
     value: id,
@@ -201,12 +214,27 @@ async function deleteRole(){
     {
       type: "list",
       name: "roleId",
-      message: "What new role would you like to assign to this employee?",
+      message: "Which role would you like to delete?",
       choices: rolesOptionsToChooseFrom,
     },
   ]);
 
   await dbUtil.removeRole(roleId);
+  init();
+}
+
+async function deleteDepartment() {
+  const departmentOptions = await dbUtil.viewAllDepartments();
+
+  const departmentOptionsToChooseFrom = departmentOptions.map(({ id, name }) => ({ name: name, value: id }));
+
+  const { departmentId } = await inquirer.prompt({
+    type: "list",
+    name: "departmentId",
+    message: "Which department would you like to delete?",
+    choices: departmentOptionsToChooseFrom,
+  });
+  await dbUtil.removeDepartment(departmentId);
   init();
 }
 function quit() {

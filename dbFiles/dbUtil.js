@@ -34,17 +34,20 @@ class databaseQueryUtil {
     return this.connection.query("INSERT INTO department SET ?", department);
   }
 
-  updateEmployeeRole(employeeId, newRoleId){
-      console.log("inside query")
-      return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [newRoleId, employeeId])
+  updateEmployeeRole(employeeId, newRoleId) {
+    console.log("inside query");
+    return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [newRoleId, employeeId]);
   }
 
-  removeEmployee(id){
-      return this.connection.query("DELETE FROM employee WHERE id = ?", id)
+  removeEmployee(id) {
+    return this.connection.query("DELETE FROM employee WHERE id = ?", id);
   }
-  removeRole(id){
-    return this.connection.query("DELETE FROM role WHERE id = ?", id)
-}
+  removeRole(id) {
+    return this.connection.query("DELETE FROM role WHERE id = ?", id);
+  }
+  removeDepartment(id) {
+    return this.connection.query("DELETE FROM department WHERE id = ?", id);
+  }
 }
 
 module.exports = new databaseQueryUtil(connection);
