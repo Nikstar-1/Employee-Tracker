@@ -8,7 +8,7 @@ function init() {
   inquirer
     .prompt({
       type: "list",
-      choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Delete Employee", "Quit"],
+      choices: ["Add Department", "Add Role", "Add Employee", "View Departments", "View Roles", "View Employees", "Update Employee Role", "Delete Employee", "Delete Role", "Quit"],
       message: "What would you like to do?",
       name: "option",
     })
@@ -31,6 +31,8 @@ function init() {
           return updateEmployee();
           case "Delete Employee":
             return deleteEmployee();
+            case "Delete Role":
+              return deleteRole();
         case "Quit":
           return quit();
       }
@@ -183,6 +185,28 @@ async function deleteEmployee(){
     },
   ]);
   await dbUtil.removeEmployee(employeeId);
+  init();
+}
+
+async function deleteRole(){
+
+  const rolesOptions = await dbUtil.viewAllRoles();
+  
+  const rolesOptionsToChooseFrom = rolesOptions.map(({ id, title }) => ({
+    name: title,
+    value: id,
+  }));
+
+  const { roleId } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "roleId",
+      message: "What new role would you like to assign to this employee?",
+      choices: rolesOptionsToChooseFrom,
+    },
+  ]);
+
+  await dbUtil.removeRole(roleId);
   init();
 }
 function quit() {

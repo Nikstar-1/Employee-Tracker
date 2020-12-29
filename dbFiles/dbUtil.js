@@ -42,6 +42,9 @@ class databaseQueryUtil {
   removeEmployee(id){
       return this.connection.query("DELETE FROM employee WHERE id = ?", id)
   }
+  removeRole(id){
+    return this.connection.query("DELETE FROM role WHERE id = ?", id)
+}
 }
 
 module.exports = new databaseQueryUtil(connection);
