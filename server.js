@@ -19,7 +19,7 @@ function init() {
           return viewAllEmployees();
         case "View Roles":
           return viewAllRoles();
-        case "View all Employees By Deparments":
+        case "View Deparments":
           return viewAllDepartments();
         case "Add Employee":
           return addEmployee();
@@ -27,7 +27,7 @@ function init() {
           return addRole();
         case "Add Department":
           return addDepartment();
-        case "Update Employee":
+        case "Update Employee Role":
           return updateEmployee();
         case "Quit":
           return quit();
@@ -54,7 +54,7 @@ async function addDepartment() {
   const department = await inquirer.prompt({
     type: "input",
     message: "What is the name of the department?",
-    name: "name",
+    name: "departmentName",
   });
   await dbQueryUtil.createDepartment(department);
   init();
@@ -97,7 +97,7 @@ async function addEmployee() {
   employeeToAdd.role_id = roleId;
   employeeToAdd.manager_id = managerId;
 
-  await dbUtil.addEmployee(employeeToAdd);
+  await dbUtil.createEmployee(employeeToAdd);
 
   init();
 }
@@ -128,28 +128,41 @@ async function addRole() {
   init();
 }
 async function updateEmployee() {
-  inquirer.prompt([
+  const employeeOptions = await dbUtil.getAllEmployees();
+
+  const rolesOptions = await dbUtil.viewAllRoles();
+  console.log(rolesOptions);
+
+  const employeeOptionsToChooseFrom = employeeOptions.map(({ id, first_name, last_name }) => ({
+    name: first_name + last_name,
+    value: id,
+  }));
+
+  const rolesOptionsToChooseFrom = rolesOptions.map(({ id, title }) => ({
+    name: title,
+    value: id,
+  }));
+
+  const { employeeId } = await inquirer.prompt([
     {
-      type: "input",
-      message: "What's the first name of the employee?",
-      name: "employeeFirstName",
-    },
-    {
-      type: "input",
-      message: "What's the last name of the employee?",
-      name: "employeeLastName",
-    },
-    {
-      type: "input",
-      message: "What is the employee's role id number?",
-      name: "roleIDNumber",
-    },
-    {
-      type: "input",
-      message: "What is the manager id number?",
-      name: "managerID",
+      type: "list",
+      name: "employeeId",
+      message: "Select the employee whose role you wish to change:",
+      choices: employeeOptionsToChooseFrom,
     },
   ]);
+
+  const { roleId } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "roleId",
+      message: "What new role would you like to assign to this employee?",
+      choices: rolesOptionsToChooseFrom,
+    },
+  ]);
+
+  await dbUtil.updateEmployeeRole(employeeId, roleId);
+  init();
 }
 
 function quit() {
