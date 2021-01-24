@@ -95,23 +95,28 @@ async function addEmployee() {
   ]);
 
   var roleChoicesList = rolesOptions.map(({ id, title }) => ({ name: title, value: id }));
+  console.log("role choicesList", rolesOptions)
 
-  const { roleId } = await inquirer.prompt({
+  const  roleId  = await inquirer.prompt({
     type: "list",
     name: "roleId",
     message: "What is this new employees role?",
-    choices: roleChoicesList,
+    choices: rolesOptions,
   });
 
   const managerChoicesList = managerOptions.map(({ first_name, last_name, id }) => ({ name: first_name + last_name, value: id }));
-
+  if (managerChoicesList && managerChoicesList.length > 0){
   const { managerId } = await inquirer.prompt({
+    
     type: "list",
     name: "managerId",
     message: "Please select this new employees manager:",
     choices: managerChoicesList,
+      
   });
-
+  employeeToAdd.manager_id = managerId;
+  }
+  
   employeeToAdd.role_id = roleId;
   employeeToAdd.manager_id = managerId;
 
