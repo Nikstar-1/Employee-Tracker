@@ -18,7 +18,7 @@ class databaseQueryUtil {
 
   //Role. (get, add)
   viewAllRoles() {
-    return this.connection.query(" SELECT id, title, salary, department_id AS role FROM role");
+    return this.connection.query("SELECT id, title, salary, department_id AS role FROM role");
   }
 
   addRole(newRole) {

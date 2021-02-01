@@ -95,13 +95,13 @@ async function addEmployee() {
   ]);
 
   var roleChoicesList = rolesOptions.map(({ id, title }) => ({ name: title, value: id }));
-  console.log("role choicesList", rolesOptions)
+  //console.log("role choicesList", rolesOptions)
 
-  const  roleId  = await inquirer.prompt({
+  const  {roleId}  = await inquirer.prompt({
     type: "list",
     name: "roleId",
     message: "What is this new employees role?",
-    choices: rolesOptions,
+    choices: roleChoicesList,
   });
 
   const managerChoicesList = managerOptions.map(({ first_name, last_name, id }) => ({ name: first_name + last_name, value: id }));
@@ -118,7 +118,7 @@ async function addEmployee() {
   }
   
   employeeToAdd.role_id = roleId;
-  employeeToAdd.manager_id = managerId;
+  //employeeToAdd.manager_id = mana÷erId;
 
   await dbUtil.createEmployee(employeeToAdd);
 
