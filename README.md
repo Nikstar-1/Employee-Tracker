@@ -19,7 +19,7 @@ In this homework assignment, My challenge is to architect and build a solution f
 !["Start Page"](images/picOne.png "Start page.")
 
 
-!["Start Page"](images/pic2.png"Start page.")
+!["Start Page"](images/pic2.png "Start page.")
 
 
 !["Start Page"](images/pic3.png "Start page.")
