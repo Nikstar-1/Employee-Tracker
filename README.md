@@ -11,6 +11,8 @@ Often these interfaces are known as Content Management Systems.
 
 In this homework assignment, My challenge is to architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
 
+A video demonstration can be found on the following link: https://drive.google.com/file/d/1ZZi_AWocDF4PSqo_AABmACAxHapqBIBj/view
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Screenshots:
